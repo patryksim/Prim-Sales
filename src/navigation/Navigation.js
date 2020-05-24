@@ -19,6 +19,7 @@ import NavigationBottomNavigation from './NavigationBottom';
 import NavigationChipsNavigation from './NavigationChips';
 import NavigationDashboard from "./NavigationDashboard";
 import NavigationMusic from "./NavigationMusic";
+import NavigationPrim from "./NavigationPrim";
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -45,6 +46,7 @@ function Navigation ({page}) {
             <NavigationChipsNavigation pageState={pageState}/>
             <NavigationDashboard pageState={pageState}/>
             <NavigationMusic pageState={pageState}/>
+            <NavigationPrim pageState={pageState}/>
         </Animated.View>
     );
 }

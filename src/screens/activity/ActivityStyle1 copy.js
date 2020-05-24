@@ -12,37 +12,29 @@ const DATA = [
     {id: '4', type: 'picture', user: 'Jean Basquiat', actionLabel: 'Posted a photo', datetime: '4 days ago'},
 ];
 
-function ActivityStyle1({leftMenuRef, snackbarRef, withHeaderMenu=false}) {
+function ActivityStyle1() {
     const pageContext = useContext(PageContext);
-    if (withHeaderMenu){
-        return (
-            <View style={{flex: 1}}>
-                <HeaderThreeButton
-                    title='Activity'
-                    isHome={true}
-                    navPress={() => leftMenuRef.current.navigateMenu()}
-                    searchPress={() => snackbarRef.current.ShowSnackBarFunction('search clicked')}
-                    morePress={() => snackbarRef.current.ShowSnackBarFunction('more clicked')}
-                    bgColor='#0092fe'
-                />
-                <FlatList
-                    contentContainerStyle={{paddingBottom: 10}}
-                    data={DATA}
-                    renderItem={({item}) => <ItemActivity data={item}/>}
-                    keyExtractor={item => item.id}
-                />
-                <MaterialSnackbar ref={snackbarRef}/>
-            </View>
-        );
-    } else {
-        return (
-            <View style={{flex: 1, padding: 10, backgroundColor: '#9fa2a3'}}>
-                <Text style={{color: 'white'}}>PAGE</Text>
-            </View>
-        );
-    }
+    const snackbarRef = useRef(null);
+    return (
+        <View style={{flex: 1, backgroundColor: '#f1f5f7'}}>
+            <HeaderThreeButton
+                title='Activity'
+                isHome={true}
+                navPress={() => pageContext.pageDispatch({page: 'pop'})}
+                searchPress={() => snackbarRef.current.ShowSnackBarFunction('search clicked')}
+                morePress={() => snackbarRef.current.ShowSnackBarFunction('more clicked')}
+                bgColor='#ff5722'
+            />
+            <FlatList
+                contentContainerStyle={{paddingBottom: 10}}
+                data={DATA}
+                renderItem={({item}) => <ItemActivity data={item}/>}
+                keyExtractor={item => item.id}
+            />
+            <MaterialSnackbar ref={snackbarRef}/>
+        </View>
+    );
 }
-
 
 function ItemActivity({data}) {
     let dotColor;

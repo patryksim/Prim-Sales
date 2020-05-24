@@ -23,11 +23,11 @@ function EcommerceStyle8() {
     return (
         <View style={{flex: 1, backgroundColor: '#f1f5f7'}}>
             <HeaderShopping
-                title='Productos'
+                title='New Arrivals'
                 isHome={false}
                 navPress={() => pageContext.pageDispatch({page: 'pop'})}
                 cartPress={() => snackbarRef.current.ShowSnackBarFunction('cart clicked')}
-                bgColor='#0092fe'
+                bgColor='#ff9800'
                 shadow={false}
             />
             <View style={{
@@ -75,7 +75,7 @@ function CardHeader({snackbarRef}) {
                     marginBottom: 10
                 }}>Autumn Dress</Text>
                 <MaterialButton title='SHOP NOW'
-                                style={{width: 140, height: 44, marginTop: 10, backgroundColor: '#0092fe'}}
+                                style={{width: 140, height: 44, marginTop: 10, backgroundColor: '#ff9800'}}
                                 buttonPress={() => snackbarRef.current.ShowSnackBarFunction('Shop now clicked')}/>
             </View>
         </ImageBackground>
@@ -85,7 +85,6 @@ function CardHeader({snackbarRef}) {
 function CardItem({data}) {
     let cardMargin = 5;
     let cardWidth = (screenWidth / 2) - (cardMargin * 3);
-    const pageContext = useContext(PageContext);
 
     return (
         <View style={{
@@ -100,11 +99,10 @@ function CardItem({data}) {
         }}>
             <View style={{height: 190, overflow: 'hidden',}}>
                 <Image style={{height: '100%', width: '100%'}}
-                       source={{uri: storageImageUrl('ecommerce', data.image)}}
-                       onPress={() => pageContext.pageDispatch({page : 'ecommerce14', category:"xxx"} )}/>
+                       source={{uri: storageImageUrl('ecommerce', data.image)}}/>
             </View>
             <View style={{padding: 10}}>
-                <Text style={{fontSize: 14, color: '#263238'}} onPress={() => pageContext.pageDispatch({page : 'ecommerce14', category:"xxx"} )}>{data.title}</Text>
+                <Text style={{fontSize: 14, color: '#263238'}}>{data.title}</Text>
                 <StarBar rating={4}/>
                 <Text style={{fontSize: 12, color: '#ff9800'}}>${data.price}</Text>
             </View>

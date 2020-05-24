@@ -7,15 +7,13 @@ import SwipeBackView from "../../components/SwipeBack";
 import DummyPage from "../../components/DummyPage";
 import {storageImageUrl} from "../../tools/Helpers";
 
+import ActivityStyle1 from './../activity/ActivityStyle1';
+
 const MENU_ITEM = [
-    {
-        id: '1',
-        title: 'Stories',
-        subMenu: [{id: '1a', title: 'Popular'}, {id: '1b', title: 'Recent'}, {id: '1c', title: 'Favorite'}]
-    },
-    {id: '2', title: 'Feed', subMenu: []},
-    {id: '3', title: 'Messages', subMenu: []},
-    {id: '4', title: 'Profile', subMenu: []},
+    {id: 'customerslist', title: 'Clientes', subMenu: [] },
+    {id: 'ecommerce8', title: 'Producto', subMenu: [] },
+    {id: 'ecommerce21', title: 'Pedido', subMenu: [] },
+    {id: 'verification1', title: 'Sincronización', subMenu: [] },
 ];
 
 function MenuStyle6() {
@@ -23,9 +21,26 @@ function MenuStyle6() {
     const snackbarRef = useRef(null);
     const leftMenuRef = useRef(null);
 
-    const onMenuPress = (title) => {
-        snackbarRef.current.ShowSnackBarFunction(`menu ${title} clicked`);
+    const onMenuPress = (dt) => {
+        // pageContext.pageDispatch({page: dt.id})
+        // snackbarRef.current.ShowSnackBarFunction(`menu ${dt.id} clicked`);
         leftMenuRef.current.navigateMenu();
+        switch (dt.id) {
+            case 'customerslist':
+                pageContext.pageDispatch({page: dt.id})
+                break;
+            case 'ecommerce8':
+                pageContext.pageDispatch({page: dt.id})
+                break;
+            case 'ecommerce21':
+                pageContext.pageDispatch({page: dt.id})
+                break;
+            case 'verification1':
+                snackbarRef.current.ShowSnackBarFunction(`${dt.title} en curso`)
+                break;
+            default:
+                break;
+        }
     };
 
     return (
@@ -37,7 +52,7 @@ function MenuStyle6() {
                 renderMenuComponent={() => <LeftMenuContainer onMenuPress={onMenuPress}
                                                               onLogoutPress={() => onMenuPress('Logout')}
                                                               onSettingPress={() => onMenuPress('Setting')}/>}
-                renderPage={() => <DummyPage withHeaderMenu={true} leftMenuRef={leftMenuRef} snackbarRef={snackbarRef}/>}
+                renderPage={() => <ActivityStyle1 withHeaderMenu={true} leftMenuRef={leftMenuRef} snackbarRef={snackbarRef}/>}
             />
             <MaterialSnackbar ref={snackbarRef}/>
         </SwipeBackView>
@@ -46,6 +61,7 @@ function MenuStyle6() {
 
 function LeftMenuContainer({onMenuPress, onLogoutPress, onSettingPress}) {
     const [selected, setSelected] = useState(new Map());
+    
 
     const onSelect = useCallback(
         (id, title) => {
@@ -58,11 +74,11 @@ function LeftMenuContainer({onMenuPress, onLogoutPress, onSettingPress}) {
     );
 
     return (
-        <View style={{flex: 1, backgroundColor: '#8e24aa'}}>
+        <View style={{flex: 1, backgroundColor: '#0092fe'}}>
             <View style={{flex: 1, alignItems: 'center'}}>
                 <ImageBackground source={{uri: storageImageUrl('menu', 'menu_6_480.jpg')}} style={{height: 160, width: '100%', alignItems: 'center', backgroundColor: 'gray'}}>
                     <Text style={{fontSize: 27, color: 'white', marginTop: 30}}>Michael Angelo</Text>
-                    <Text style={{fontSize: 14, color: 'white', marginTop: 5}}>Manhattan, NY</Text>
+                    <Text style={{fontSize: 14, color: 'white', marginTop: 5}}>Panamá, PTY</Text>
                 </ImageBackground>
                 <View style={{width: 86, height: 86, marginTop: -43, borderRadius: 43, backgroundColor: 'blue'}}>
                     <Image source={{uri: storageImageUrl('menu', 'profile_pic_300.png')}}
@@ -74,12 +90,10 @@ function LeftMenuContainer({onMenuPress, onLogoutPress, onSettingPress}) {
                         renderItem={({item}) => (
                             <ItemMenu
                                 item={item}
-                                selected={!!selected.get(item.id)}
-                                onSelect={onSelect}
+                                onMenuPress={onMenuPress}
                             />
                         )}
                         keyExtractor={item => item.id}
-                        extraData={selected}
                     />
                 </View>
             </View>
@@ -101,50 +115,22 @@ function LeftMenuContainer({onMenuPress, onLogoutPress, onSettingPress}) {
     );
 }
 
-function ItemMenu({item, selected, onSelect}) {
-    const [isSubMenuOpen, setSubmenu] = useState(true);
-    if (item.subMenu.length > 0) {
-        let subMenuItem = [];
-        item.subMenu.map((dt) => {
-            subMenuItem.push(
-                <TouchableOpacity key={dt.id} onPress={() => onSelect(dt.id, dt.title)}
-                                  style={{
-                                      flexDirection: 'row',
-                                      alignItems: 'center',
-                                      justifyContent: 'space-between',
-                                      paddingHorizontal: 20,
-                                      paddingVertical: 5,
-                                  }}>
-                    <Text style={{fontSize: 14, color: 'white'}}>{dt.title}</Text>
-                </TouchableOpacity>
-            )
-        });
-        return (
-            <View>
-                <TouchableOpacity onPress={() => setSubmenu(!isSubMenuOpen)} style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    padding: 20
-                }}>
-                    <Text style={{fontSize: 14, fontWeight: 'bold', color: 'white'}}>{item.title}</Text>
-                </TouchableOpacity>
-                {isSubMenuOpen && subMenuItem}
-            </View>
-        );
-    } else {
-        return (
-            <TouchableOpacity onPress={() => onSelect(item.id, item.title)}
-                              style={{
-                                  flexDirection: 'row',
-                                  alignItems: 'center',
-                                  justifyContent: 'space-between',
-                                  padding: 20
-                              }}>
-                <Text style={{fontSize: 14, fontWeight: 'bold', color: 'white'}}>{item.title}</Text>
-            </TouchableOpacity>
-        );
-    }
+// esta funcion renderiza los items que componen el menu lateral
+function ItemMenu({item, onMenuPress}) {
+    return (
+        <TouchableOpacity
+        onPress={() => onMenuPress(item)}
+          style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: 20,
+          }}>
+          <Text style={{fontSize: 14, fontWeight: 'bold', color: 'white'}}>
+                {item.title}
+        </Text>
+        </TouchableOpacity>
+      );
 }
 
 export default MenuStyle6;

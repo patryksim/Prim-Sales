@@ -37,8 +37,8 @@ function LoginStyle13() {
                     </View>
                 </View>
             </View>
-            <MaterialButton title='Sign In' style={{height: 50, backgroundColor: '#0092fe'}}
-                            buttonPress={() => pageContext.pageDispatch({page: 'menu14'})}/>
+            <MaterialButton title='Sign In' style={{height: 50, backgroundColor: '#ff5722'}}
+                            buttonPress={() => snackbarRef.current.ShowSnackBarFunction('Sign In clicked')}/>
             <MaterialSnackbar ref={snackbarRef}/>
         </ImageBackground>
     );

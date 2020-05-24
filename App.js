@@ -8,16 +8,19 @@
 
 import React, {useReducer} from 'react';
 import {Dimensions, SafeAreaView, StatusBar, View} from 'react-native';
-import HomeScreen from "./src/screens/HomeScreen";
 import Navigation from "./src/navigation/Navigation";
 import useBackButton from "./src/hooks/UseBackButton";
+
+import LoginStyle13 from './src/screens/login/LoginStyle13'
+
+import HomeScreen from './src/screens/HomeScreen'
 
 export const PageContext = React.createContext();
 
 const initialState = {
-    page: 'home',
+    page: 'login13',
     category: 'none',
-    pageStack: ['home']
+    pageStack: ['login13']
 };
 
 const reducer = (state, action) => {
@@ -62,7 +65,7 @@ const App: () => React$Node = () => {
             <SafeAreaView style={{flex: 1}}>
                 <View style={{flex: 1, flexDirection: 'row'}}>
                     <View style={{width: screenWidth, backgroundColor: '#434244'}}>
-                        <HomeScreen/>
+                        <LoginStyle13/>
                     </View>
                     <Navigation page={state.page}/>
                 </View>

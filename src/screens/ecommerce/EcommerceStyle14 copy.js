@@ -20,7 +20,7 @@ function EcommerceStyle14() {
                 isHome={false}
                 navPress={() => pageContext.pageDispatch({page: 'pop'})}
                 cartPress={() => snackbarRef.current.ShowSnackBarFunction('cart clicked')}
-                bgColor='#0092fe'
+                bgColor='#ff9800'
                 shadow={false}
             />
             <ScrollView>
@@ -44,7 +44,7 @@ function EcommerceStyle14() {
                     marginTop: -40
                 }}
                                 image={require('../../assets/icon/ic_love_white.png')}
-                                imageStyle={{tintColor: '#0092fe', width: 20, height: 20}}
+                                imageStyle={{tintColor: '#ff9800', width: 20, height: 20}}
                                 onPress={() => snackbarRef.current.ShowSnackBarFunction('love clicked')}/>
                 <DescriptionItem snackbarRef={snackbarRef}/>
             </ScrollView>
@@ -122,7 +122,7 @@ function ButtonAddToCart({onPress}) {
             elevation: 3,
             shadowOffset: {width: 0, height: 2},
             shadowOpacity: 0.3,
-            backgroundColor: '#0092fe',
+            backgroundColor: '#ff9800',
         }} onPress={onPress}>
             <Image source={require('../../assets/icon/ic_shoppig_cart.png')}
                    style={{height: 36, width: 36, resizeMode: 'contain'}}/>

@@ -27,10 +27,10 @@ function EcommerceStyle21() {
     return (
         <View style={{flex: 1, backgroundColor: '#f1f5f7'}}>
             <HeaderShopping
-                title='Pedido'
+                title='Shopping Cart'
                 navPress={() => pageContext.pageDispatch({page: 'pop'})}
                 cartPress={() => snackbarRef.current.ShowSnackBarFunction('cart clicked')}
-                bgColor='#0092fe'
+                bgColor='#ff9800'
                 shadow={false}
                 numItems={3}
             />
@@ -46,7 +46,7 @@ function EcommerceStyle21() {
                                 alignSelf: 'center',
                                 height: 50,
                                 marginBottom: 10,
-                                backgroundColor: '#0092fe'
+                                backgroundColor: '#ff9800'
                             }}
                             buttonPress={() => snackbarRef.current.ShowSnackBarFunction('Apply filter clicked')}/>
             <View style={{
@@ -123,12 +123,12 @@ function ItemData({data}) {
                     <Text style={{fontSize: 17, color: '#263238'}}>{data.title}</Text>
                     <Text style={{fontSize: 14, color: '#616161'}}>Size M</Text>
                     <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 20}}>
-                        <FloatingButton size={34} style={{backgroundColor: '#0092fe', position: 'relative'}}
+                        <FloatingButton size={34} style={{backgroundColor: '#ff9800', position: 'relative'}}
                                         image={require('../../assets/icon/ic_minus.png')}
                                         imageStyle={{tintColor: 'white', width: 20, height: 20}}
                                         onPress={() => setItem(item - 1)}/>
                         <Text style={{width: 50, textAlign: 'center', fontSize: 14, color: '#bdbdbd'}}>{item}</Text>
-                        <FloatingButton size={34} style={{backgroundColor: '#0092fe', position: 'relative'}}
+                        <FloatingButton size={34} style={{backgroundColor: '#ff9800', position: 'relative'}}
                                         image={require('../../assets/icon/ic_plus.png')}
                                         imageStyle={{tintColor: 'white', width: 20, height: 20}}
                                         onPress={() => setItem(item + 1)}/>

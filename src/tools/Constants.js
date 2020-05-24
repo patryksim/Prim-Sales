@@ -27,6 +27,7 @@ export const HOME_MENU = [
         category: 'activity',
         icon: require('../assets/icon/logo_activity.png'),
         data: [
+            { title: 'Customers List', action: 'customerslist' },
             { title: 'Activity Style 1', action: 'activity1' },
             { title: 'Activity Style 2', action: 'activity2' },
             { title: 'Activity Style 3', action: 'activity3' },

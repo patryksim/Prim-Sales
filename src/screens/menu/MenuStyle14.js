@@ -1,5 +1,5 @@
 import React, {useCallback, useContext, useRef, useState} from 'react';
-import {FlatList, Image, Text, TouchableOpacity, View} from "react-native";
+import {FlatList, Image, Text, TouchableOpacity, Modal, View} from "react-native";
 import {PageContext} from "../../../App";
 import MaterialSnackbar from "../../components/MaterialSnackbar";
 import SwipeMenuLeft from "../../components/SwipeMenuLeft";
@@ -7,22 +7,46 @@ import SwipeBackView from "../../components/SwipeBack";
 import DummyPage from "../../components/DummyPage";
 import {storageImageUrl} from "../../tools/Helpers";
 
+import ActivityStyle1 from './../activity/ActivityStyle1';
+// import EcommerceStyle21 from './../ecommerce/EcommerceStyle21';
+
 const MENU_ITEM = [
-    {id: '1', title: 'Feed', notifCount: 32},
-    {id: '2', title: 'Explore', notifCount: 0},
-    {id: '3', title: 'Activity', notifCount: 0},
-    {id: '4', title: 'Group', notifCount: 0},
-    {id: '5', title: 'Setting', notifCount: 0},
+    {id: 'customerslist', title: 'Clientes', subMenu: [] },
+    {id: 'ecommerce8', title: 'Producto', subMenu: [] },
+    {id: 'ecommerce21', title: 'Pedido', subMenu: [] },
+    {id: 'verification1', title: 'Sincronización', subMenu: [] },
+    // {id: 'about', title: 'About', subMenu: [] },
 ];
 
 function MenuStyle14() {
     const pageContext = useContext(PageContext);
     const snackbarRef = useRef(null);
     const leftMenuRef = useRef(null);
+    const [visible, setVisible] = useState(false);
 
-    const onMenuPress = (title) => {
-        snackbarRef.current.ShowSnackBarFunction(`menu ${title} clicked`);
+    const onMenuPress = (dt) => {
+        // pageContext.pageDispatch({page: dt.id})
+        // snackbarRef.current.ShowSnackBarFunction(`menu ${dt.id} clicked`);
         leftMenuRef.current.navigateMenu();
+        switch (dt.id) {
+            case 'customerslist':
+                pageContext.pageDispatch({page: dt.id})
+                break;
+            case 'ecommerce8':
+                pageContext.pageDispatch({page: dt.id})
+                break;
+            case 'ecommerce21':
+                pageContext.pageDispatch({page: dt.id})
+                break;
+            case 'about' :
+                    setVisible(true);
+                    break;
+            case 'verification1':
+                snackbarRef.current.ShowSnackBarFunction(`${dt.title} en curso`)
+                break;
+            default:
+                break;
+        }
     };
 
     return (
@@ -32,10 +56,10 @@ function MenuStyle14() {
                 ref={leftMenuRef}
                 menuWidth={300}
                 renderMenuComponent={() => <LeftMenuContainer onMenuPress={onMenuPress}/>}
-                renderPage={() => <DummyPage withHeaderMenu={true} leftMenuRef={leftMenuRef}
-                                             snackbarRef={snackbarRef}/>}
+                renderPage={() => <ActivityStyle1 withHeaderMenu={true} leftMenuRef={leftMenuRef} snackbarRef={snackbarRef}/>}
             />
             <MaterialSnackbar ref={snackbarRef}/>
+            {/* <AboutAppDialog visible={visible} onDissmiss={() => setVisible(false)}/> */}
         </SwipeBackView>
     );
 }
@@ -93,26 +117,24 @@ function LeftMenuContainer({onMenuPress}) {
                 </View>
             </View>
             <View style={{flex: 1, width: '100%', marginTop: 20}}>
-                <FlatList
-                    data={MENU_ITEM}
-                    renderItem={({item}) => (
-                        <ItemMenu
-                            data={item}
-                            selected={!!selected.get(item.id)}
-                            onSelect={onSelect}
-                        />
-                    )}
-                    keyExtractor={item => item.id}
-                    extraData={selected}
-                />
+                    <FlatList
+                        data={MENU_ITEM}
+                        renderItem={({item}) => (
+                            <ItemMenu
+                                item={item}
+                                onMenuPress={onMenuPress}
+                            />
+                        )}
+                        keyExtractor={item => item.id}
+                    />
             </View>
         </View>
     );
 }
 
-function ItemMenu({data, selected, onSelect}) {
+function ItemMenu({item, selected, onMenuPress}) {
     return (
-        <TouchableOpacity onPress={() => onSelect(data.id, data.title)}
+        <TouchableOpacity onPress={() => onMenuPress(item)}
                           style={{
                               flexDirection: 'row',
                               alignItems: 'center',
@@ -124,7 +146,7 @@ function ItemMenu({data, selected, onSelect}) {
                               borderTopLeftRadius: 5,
                               borderBottomLeftRadius: 5,
                           }}>
-            <Text style={{fontSize: 14, fontWeight: selected ? 'bold' : 'normal'}}>{data.title}</Text>
+            <Text style={{fontSize: 14, fontWeight: selected ? 'bold' : 'normal'}}>{item.title}</Text>
             <View style={{
                 width: 22,
                 height: 22,
@@ -133,10 +155,55 @@ function ItemMenu({data, selected, onSelect}) {
                 borderRadius: 4,
                 marginLeft: 10,
                 backgroundColor: '#448aff',
-                opacity: data.notifCount > 0 ? 1 : 0
+                opacity: item.notifCount > 0 ? 1 : 0
             }}>
-                <Text style={{fontSize: 12, color: 'white'}}>{data.notifCount}</Text>
+                <Text style={{fontSize: 12, color: 'white'}}>{item.notifCount}</Text>
             </View>
+        </TouchableOpacity>
+    );
+}
+
+function AboutAppDialog({visible, onDissmiss}) {
+
+    return (
+        <Modal animationType='fade' transparent={true} visible={visible}>
+            <View style={{flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', alignItems: 'center', justifyContent: 'center'}}>
+                <TouchableOpacity onPress={onDissmiss} style={{flex: 1, width: '100%'}}/>
+                <View style={{width: 300, backgroundColor: 'white', borderRadius: 5, overflow: 'hidden'}}>
+                    <View style={{
+                        width: 100,
+                        height: 100,
+                        borderRadius: 50,
+                        justifyContent: 'center',
+                        backgroundColor: '#5d47e3',
+                        marginTop: 30,
+                        alignSelf: 'center'
+                    }}>
+                        {/* <Image style={{width: 56, height: 56, alignSelf: 'center', marginVertical: 40}}
+                               source={require('../assets/icon/logo.png')}/> */}
+                    </View>
+                    <View style={{alignItems: 'center', paddingHorizontal: 20}}>
+                        <Text style={{fontSize: 22, fontWeight: 'bold', color: '#1e1e1e', marginTop: 25}}>About this app</Text>
+                        <Text style={{fontSize: 16, color: '#acacac', marginTop: 3}}>Version 1.0</Text>
+                        <Text style={{fontSize: 16, color: '#acacac', textAlign: 'center', marginVertical: 10}}>Everything you need for success React Native mobile app developers. Complete solution with high productivity and cost-efficiency.</Text>
+                    </View>
+                    <LinkText text='Our Port Folio' onPress={() => openUrl(otherAppUrl)}/>
+                    <LinkText text='Rate This App' onPress={() => openUrl(playstoreUrl)}/>
+                    <TouchableOpacity style={{backgroundColor: '#5d47e3', alignItems: 'center', padding: 20, marginTop: 20}} onPress={() => openUrl(sourceUrl)}>
+                        <Text style={{fontSize: 18, fontWeight: 'bold', color: 'white'}}>Get Source Code</Text>
+                    </TouchableOpacity>
+                </View>
+                <TouchableOpacity onPress={onDissmiss} style={{flex: 1, width: '100%'}}/>
+            </View>
+        </Modal>
+
+    );
+}
+
+function LinkText({text, onPress}) {
+    return (
+        <TouchableOpacity style={{alignItems: 'center', paddingVertical: 5}} onPress={onPress}>
+            <Text style={{fontSize: 18, fontWeight: 'bold', color: '#2f1f9a'}}>{text}</Text>
         </TouchableOpacity>
     );
 }

@@ -30,7 +30,7 @@ function EcommerceStyle27() {
                                 height: 50,
                                 marginBottom: 10,
                                 marginTop: 10,
-                                backgroundColor: '#ff9800'
+                                backgroundColor: '#448aff'
                             }}
                             buttonPress={() => pageContext.pageDispatch({page: 'pop'})}/>
             <MaterialSnackbar ref={snackbarRef}/>

@@ -7,12 +7,13 @@ import HeaderShopping from "../../components/HeaderShopping";
 import StarBar from "../../components/StarBar";
 import FloatingButton from "../../components/FloatingButton";
 
+
 const screenWidth = (Dimensions.get('window').width);
 
 function EcommerceStyle14() {
     const pageContext = useContext(PageContext);
     const snackbarRef = useRef(null);
-
+    const info = pageContext.pageState.info;
     return (
         <View style={{flex: 1, backgroundColor: '#f1f5f7'}}>
             <HeaderShopping
@@ -20,7 +21,7 @@ function EcommerceStyle14() {
                 isHome={false}
                 navPress={() => pageContext.pageDispatch({page: 'pop'})}
                 cartPress={() => snackbarRef.current.ShowSnackBarFunction('cart clicked')}
-                bgColor='#0092fe'
+                bgColor='#ff9800'
                 shadow={false}
             />
             <ScrollView>
@@ -34,7 +35,7 @@ function EcommerceStyle14() {
                     backgroundColor: 'white'
                 }}>
                     <Image style={{height: 250, width: screenWidth}}
-                           source={{uri: storageImageUrl('ecommerce', 'ecommerce_14.jpg')}}/>
+                           source={{uri: storageImageUrl('ecommerce', info.image)}}/>
                 </View>
                 <FloatingButton style={{
                     backgroundColor: 'white',
@@ -44,19 +45,21 @@ function EcommerceStyle14() {
                     marginTop: -40
                 }}
                                 image={require('../../assets/icon/ic_love_white.png')}
-                                imageStyle={{tintColor: '#0092fe', width: 20, height: 20}}
+                                imageStyle={{tintColor: '#ff9800', width: 20, height: 20}}
                                 onPress={() => snackbarRef.current.ShowSnackBarFunction('love clicked')}/>
-                <DescriptionItem snackbarRef={snackbarRef}/>
+                <DescriptionItem snackbarRef={snackbarRef} product={info}/>
             </ScrollView>
             <ButtonAddToCart onPress={() => snackbarRef.current.ShowSnackBarFunction('add to cart clicked')}/>
-            <MaterialSnackbar ref={snackbarRef}/>
+            <MaterialSnackbar ref={snackbarRef} pageContext/>
         </View>
     );
 }
 
-function DescriptionItem({snackbarRef}) {
-    return (
-        <View>
+class DescriptionItem extends React.Component {
+    
+    render () {
+        return (
+            <View>
             <View style={{
                 flexDirection: 'row',
                 justifyContent: 'space-between',
@@ -66,11 +69,11 @@ function DescriptionItem({snackbarRef}) {
                 borderBottomColor: '#eaeef0'
             }}>
                 <View>
-                    <Text style={{fontSize: 20, fontWeight: 'bold', color: '#263238'}}>Velcro White Sneakers</Text>
+                    <Text style={{fontSize: 20, fontWeight: 'bold', color: '#263238'}}>{this.props.product.title}</Text>
                     <Text style={{fontSize: 14, color: '#9e9e9e', marginTop: 5}}>Shoes,Sneakers, Summer</Text>
                     <StarBar rating={4} containerStyle={{marginTop: 8}}/>
                 </View>
-                <Text style={{fontSize: 20, color: '#ff9800'}}>$225</Text>
+                <Text style={{fontSize: 20, color: '#ff9800'}}>${this.props.product.price}</Text>
             </View>
             <View style={{padding: 15}}>
                 <Text style={{fontSize: 14, fontWeight: 'bold', color: '#263238', marginBottom: 3}}>DESCRIPTION</Text>
@@ -85,7 +88,8 @@ function DescriptionItem({snackbarRef}) {
                                 onPress={() => snackbarRef.current.ShowSnackBarFunction('quantity clicked')}/>
             </View>
         </View>
-    )
+        );
+    }
 }
 
 function ButtonSelector({title, onPress}) {
@@ -122,7 +126,7 @@ function ButtonAddToCart({onPress}) {
             elevation: 3,
             shadowOffset: {width: 0, height: 2},
             shadowOpacity: 0.3,
-            backgroundColor: '#0092fe',
+            backgroundColor: '#ff9800',
         }} onPress={onPress}>
             <Image source={require('../../assets/icon/ic_shoppig_cart.png')}
                    style={{height: 36, width: 36, resizeMode: 'contain'}}/>

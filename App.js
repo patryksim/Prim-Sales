@@ -11,16 +11,19 @@ import {Dimensions, SafeAreaView, StatusBar, View} from 'react-native';
 import Navigation from "./src/navigation/Navigation";
 import useBackButton from "./src/hooks/UseBackButton";
 
-import LoginStyle13 from './src/screens/login/LoginStyle13'
+import LoginStyle13 from './src/screens/login/LoginStyle13';
 
-import HomeScreen from './src/screens/HomeScreen'
+import OrdersList from './src/screens/prim/OrdersList';
+
+import HomeScreen from './src/screens/HomeScreen';
 
 export const PageContext = React.createContext();
 
 const initialState = {
     page: 'login13',
-    category: 'none',
-    pageStack: ['login13']
+    category: 'login',
+    pageStack: ['login13', 'activity1', 'menu14', 'ecommerce8', 'ecommerce14','home', 'customerlist', 'orderslist'], 
+    info: {} //screens que voy a utilizar en mi app
 };
 
 const reducer = (state, action) => {
@@ -39,7 +42,7 @@ const reducer = (state, action) => {
         }
     } else {
         newStack.push(action.page);
-        return {...state, page: action.page, category: action.category, pageStack: newStack};
+        return {...state, page: action.page, category: action.category, pageStack: newStack, info: action.info};
     }
 };
 

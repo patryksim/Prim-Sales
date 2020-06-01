@@ -9,6 +9,9 @@ import HeaderTwoButton from "../../components/HeaderTwoButton";
 const cartItems = [
     {id: '1', image: 'ecommerce_10_img_1.jpg', title: 'Zara Jumpsuit Dress', qty: 1, price: '$ 125'},
     {id: '2', image: 'ecommerce_10_img_2.jpg', title: 'Blue Sky Dress', qty: 2, price: '$ 125'},
+    {id: '3', image: 'ecommerce_10_img_3.jpg', title: 'White Shoes Her', qty: 1, price: '$ 125'},
+    {id: '4', image: 'ecommerce_10_img_1.jpg', title: 'Blue Sky Dress', qty: 2, price: '$ 125'},
+
 ];
 
 const screenWidth = (Dimensions.get('window').width);
@@ -20,10 +23,10 @@ function EcommerceStyle26() {
     return (
         <View style={{flex: 1, backgroundColor: '#f1f5f7'}}>
             <HeaderTwoButton
-                title='Order Confirmation'
+                title='Resumen de Pedido'
                 navPress={() => pageContext.pageDispatch({page: 'pop'})}
                 morePress={() => snackbarRef.current.ShowSnackBarFunction('more clicked')}
-                bgColor='#ff9800'
+                bgColor='#448aff'
             />
             <ScrollView>
                 <View style={{
@@ -45,31 +48,6 @@ function EcommerceStyle26() {
                     borderRadius: 3,
                     elevation: 3,
                 }}>
-                    <View style={{flexDirection: 'row', padding: 15, justifyContent: 'space-between'}}>
-                        <Text style={{fontSize: 12, fontWeight: 'bold', color: '#616161'}}>SHIPPING ADDRESS</Text>
-                        <EditButton onPress={() => snackbarRef.current.ShowSnackBarFunction('edit address clicked')}/>
-                    </View>
-                    <Text style={{fontSize: 14, color: '#9e9e9e', marginLeft: 15}}>Madelaine Arno</Text>
-                    <Text style={{fontSize: 14, color: '#9e9e9e', marginLeft: 15, marginTop: 5}}>6259 Monroe
-                        Street</Text>
-                    <Text style={{fontSize: 14, color: '#9e9e9e', marginLeft: 15, marginTop: 5, marginBottom: 15}}>Bakersfield,
-                        CA 93306</Text>
-                    <View style={{width: '100%', height: 0.5, backgroundColor: '#e0e0e0'}}/>
-                    <View style={{flexDirection: 'row', padding: 15, justifyContent: 'space-between'}}>
-                        <Text style={{fontSize: 12, fontWeight: 'bold', color: '#616161'}}>PAYMENT</Text>
-                        <EditButton onPress={() => snackbarRef.current.ShowSnackBarFunction('edit payment clicked')}/>
-                    </View>
-                    <View style={{
-                        flexDirection: 'row',
-                        paddingHorizontal: 15,
-                        paddingBottom: 15,
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                    }}>
-                        <Image source={require('../../assets/icon/visa_logo.png')}
-                               style={{height: 42, width: 100, resizeMode: 'contain'}}/>
-                        <Text style={{fontSize: 14, color: '#616161'}}>1923 - 6789 - XXXX</Text>
-                    </View>
                 </View>
                 <View style={{
                     marginHorizontal: 10,
@@ -92,9 +70,9 @@ function EcommerceStyle26() {
                                 height: 50,
                                 marginBottom: 10,
                                 marginTop: 10,
-                                backgroundColor: '#ff9800'
+                                backgroundColor: '#448aff'
                             }}
-                            buttonPress={() => snackbarRef.current.ShowSnackBarFunction('Finish Order')}/>
+                            buttonPress={() => pageContext.pageDispatch({page: 'ecommerce27'})}/>
             <MaterialSnackbar ref={snackbarRef}/>
         </View>
     );

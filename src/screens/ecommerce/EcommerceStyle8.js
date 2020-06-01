@@ -1,5 +1,5 @@
-import React, {useContext, useRef} from 'react';
-import {Dimensions, FlatList, Image, ImageBackground, Text, View} from "react-native";
+import React, {useContext, useRef, useState} from 'react';
+import {Dimensions, FlatList, TouchableOpacity, Image, ImageBackground, Text, View} from "react-native";
 import {PageContext} from "../../../App";
 import MaterialSnackbar from "../../components/MaterialSnackbar";
 import {storageImageUrl} from "../../tools/Helpers";
@@ -7,19 +7,19 @@ import HeaderShopping from "../../components/HeaderShopping";
 import MaterialButton from "../../components/MaterialButton";
 import StarBar from "../../components/StarBar";
 
-const DATA = [
-    {id: '1', title: 'Zara Jumpsuit Dress', image: 'ecommerce_8_img_2.jpg', price: '225'},
-    {id: '2', title: 'Black Faux Leather', image: 'ecommerce_8_img_3.jpg', price: '225'},
-    {id: '3', title: 'Zara Jumpsuit Dress', image: 'ecommerce_8_img_4.jpg', price: '225'},
-    {id: '4', title: 'Black Faux Leather', image: 'ecommerce_8_img_5.jpg', price: '225'},
-];
+import EcommerceStyle14 from './EcommerceStyle14';
 
 const screenWidth = Dimensions.get('window').width;
 
 function EcommerceStyle8() {
     const pageContext = useContext(PageContext);
     const snackbarRef = useRef(null);
-
+    const [data, setData] = useState ([
+        {id: '1', title: 'Zara Jumpsuit Dress', image: 'ecommerce_8_img_2.jpg', price: '225'},
+        {id: '2', title: 'Black Faux Leather', image: 'ecommerce_8_img_3.jpg', price: '225'},
+        {id: '3', title: 'Zara Jumpsuit Dress', image: 'ecommerce_8_img_4.jpg', price: '225'},
+        {id: '4', title: 'Black Faux Leather', image: 'ecommerce_8_img_5.jpg', price: '225'},
+    ]);
     return (
         <View style={{flex: 1, backgroundColor: '#f1f5f7'}}>
             <HeaderShopping
@@ -44,7 +44,7 @@ function EcommerceStyle8() {
                 contentContainerStyle={{padding: 5}}
                 ListHeaderComponent={() => <CardHeader snackbarRef={snackbarRef}/>}
                 numColumns={2}
-                data={DATA}
+                data={data}
                 renderItem={({item}) => <CardItem data={item}/>}
                 keyExtractor={item => item.id}
             />
@@ -86,7 +86,7 @@ function CardItem({data}) {
     let cardMargin = 5;
     let cardWidth = (screenWidth / 2) - (cardMargin * 3);
     const pageContext = useContext(PageContext);
-
+    
     return (
         <View style={{
             backgroundColor: 'white',
@@ -100,11 +100,16 @@ function CardItem({data}) {
         }}>
             <View style={{height: 190, overflow: 'hidden',}}>
                 <Image style={{height: '100%', width: '100%'}}
-                       source={{uri: storageImageUrl('ecommerce', data.image)}}
-                       onPress={() => pageContext.pageDispatch({page : 'ecommerce14', category:"xxx"} )}/>
+                       source={{uri: storageImageUrl('ecommerce', data.image)}}/>
             </View>
             <View style={{padding: 10}}>
-                <Text style={{fontSize: 14, color: '#263238'}} onPress={() => pageContext.pageDispatch({page : 'ecommerce14', category:"xxx"} )}>{data.title}</Text>
+                <TouchableOpacity 
+                    style={{fontSize: 14, color: '#263238'}} 
+                    onPress = {() => pageContext.pageDispatch({page: 'ecommerce14', info: data})}
+                >
+                    <Text>{data.title}</Text>
+                </TouchableOpacity>
+
                 <StarBar rating={4}/>
                 <Text style={{fontSize: 12, color: '#ff9800'}}>${data.price}</Text>
             </View>
@@ -112,4 +117,7 @@ function CardItem({data}) {
     )
 }
 
+
+
+    
 export default EcommerceStyle8;

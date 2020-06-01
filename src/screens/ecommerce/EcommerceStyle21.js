@@ -12,6 +12,7 @@ const DATA = [
     {id: '1', image: 'ecommerce_10_img_1.jpg', title: 'Zara Jumpsuit Dress'},
     {id: '2', image: 'ecommerce_10_img_2.jpg', title: 'Blue Sky Dress'},
     {id: '3', image: 'ecommerce_10_img_3.jpg', title: 'Black Faux Leather'},
+    {id: '4', image: 'ecommerce_10_img_1.jpg', title: 'Blue Sky Dress'},
 ];
 
 const screenWidth = (Dimensions.get('window').width);
@@ -40,7 +41,7 @@ function EcommerceStyle21() {
                 renderItem={({item}) => <ItemActivity data={item} onPressItemMenu={onPressItemMenu}/>}
                 keyExtractor={item => item.id}
             />
-            <MaterialButton title='Proceed to Checkout'
+            <MaterialButton title='Resumen de Pedido'
                             style={{
                                 width: screenWidth - 20,
                                 alignSelf: 'center',
@@ -48,7 +49,7 @@ function EcommerceStyle21() {
                                 marginBottom: 10,
                                 backgroundColor: '#0092fe'
                             }}
-                            buttonPress={() => snackbarRef.current.ShowSnackBarFunction('Apply filter clicked')}/>
+                            buttonPress={() => pageContext.pageDispatch({page : 'ecommerce26'} )}/>
             <View style={{
                 width: '100%',
                 flexDirection: 'row',

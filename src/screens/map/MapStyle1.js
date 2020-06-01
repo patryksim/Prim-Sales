@@ -10,13 +10,17 @@ import MapNavigation from "../../components/MapNavigation";
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 
-const LATITUDE = 37.78825;
-const LONGITUDE = -122.4324;
 const LATITUDE_DELTA = 0.05;
 
 function MapStyle1() {
     const pageContext = useContext(PageContext);
     const snackbarRef = useRef(null);
+    const info = pageContext.pageState.info;
+
+    const LATITUDE = info.latitud;
+    const LONGITUDE = info.longitud;
+
+    console.log('latitud: ', info.latitud, ' longitud: ', info.longitud);
 
     const [viewWidth, setViewWidth] = useState(screenWidth);
     const [viewHeight, setViewHeight] = useState(screenHeight);
@@ -26,6 +30,8 @@ function MapStyle1() {
     const MAP_HEIGHT = viewHeight - 56;
     const ASPECT_RATIO = MAP_WIDTH / MAP_HEIGHT;
     const LONGITUDE_DELTA = latDelta * ASPECT_RATIO;
+
+    
 
     return (
         <SwipeBackView onSwipeBack={() => pageContext.pageDispatch({page: 'pop'})}

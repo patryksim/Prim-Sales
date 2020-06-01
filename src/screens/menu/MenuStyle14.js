@@ -13,7 +13,7 @@ import ActivityStyle1 from './../activity/ActivityStyle1';
 const MENU_ITEM = [
     {id: 'customerslist', title: 'Clientes', subMenu: [] },
     {id: 'ecommerce8', title: 'Producto', subMenu: [] },
-    {id: 'ecommerce21', title: 'Pedido', subMenu: [] },
+    {id: 'orderslist', title: 'Pedido', subMenu: [] },
     {id: 'verification1', title: 'Sincronización', subMenu: [] },
     // {id: 'about', title: 'About', subMenu: [] },
 ];
@@ -35,7 +35,7 @@ function MenuStyle14() {
             case 'ecommerce8':
                 pageContext.pageDispatch({page: dt.id})
                 break;
-            case 'ecommerce21':
+            case 'orderslist':
                 pageContext.pageDispatch({page: dt.id})
                 break;
             case 'about' :

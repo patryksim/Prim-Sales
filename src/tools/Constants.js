@@ -28,6 +28,7 @@ export const HOME_MENU = [
         icon: require('../assets/icon/logo_activity.png'),
         data: [
             { title: 'Customers List', action: 'customerslist' },
+            { title: 'Orders List', action: 'orderslist' },
             { title: 'Activity Style 1', action: 'activity1' },
             { title: 'Activity Style 2', action: 'activity2' },
             { title: 'Activity Style 3', action: 'activity3' },
@@ -213,7 +214,7 @@ export const HOME_MENU = [
             { title: 'Ecommerce Style 11', action: 'ecommerce11' },
             { title: 'Ecommerce Style 12', action: 'ecommerce12' },
             { title: 'Ecommerce Style 13', action: 'ecommerce13' },
-            { title: 'Ecommerce Style 14', action: 'ecommerce14' },
+            { title: 'Ecommerce Style 14', action: 'ecommerce14'},
             { title: 'Ecommerce Style 15', action: 'ecommerce15' },
             { title: 'Ecommerce Style 16', action: 'ecommerce16' },
             { title: 'Ecommerce Style 17', action: 'ecommerce17' },

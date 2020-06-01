@@ -1,6 +1,7 @@
-import React, {useContext, useRef} from 'react';
+import React, {useContext, useRef, useState} from 'react';
 import {FlatList, Image, Text, View} from "react-native";
 import {PageContext} from "../../../App";
+import InputSelect from '../../components/InputSelect';
 import MaterialSnackbar from "../../components/MaterialSnackbar";
 import HeaderThreeButton from "../../components/HeaderThreeButton";
 import Map1 from "../../screens/map/MapStyle1";
@@ -12,78 +13,34 @@ const DATA_TYPE = {
     ACTION_ADD_FRIEND: 'ActionAddFriend',
 };
 
-const DATA = [
-    {
-        id: '1',
-        type: DATA_TYPE.ACTION_LIKE,
-        user: 'SM Multifortuna',
-        avatar: require('../../assets/icon/ic_profile1.png'),
-        actionType: 'liked',
-        actionLabel: 'How to be A Hipster',
-        datetime: 'An hour ago',
-        latitud:9.09716730569659,
-        longitud:-79.3719626963138
-    },
-    {
-        id: '2',
-        type: DATA_TYPE.ACTION_LIKE,
-        user: 'Ms zafiro',
-        avatar: require('../../assets/icon/ic_profile2.png'),
-        actionType: 'commented on',
-        actionLabel: 'How to be A Hipster',
-        datetime: '3 days ago',
-        latitud:9.09716730569659,
-        longitud:-79.3719626963138
-    },
-    {
-        id: '3',
-        type: DATA_TYPE.ACTION_LIKE,
-        user: 'Ms cabuya',
-        avatar: require('../../assets/icon/ic_profile1.png'),
-        actionType: 'is now following you',
-        actionLabel: '',
-        datetime: '3 days ago',
-        latitud:9.09716730569659,
-        longitud:-79.3719626963138
-    },
-    {
-        id: '4',
-        type: DATA_TYPE.ACTION_LIKE,
-        user: 'Ms koko',
-        avatar: require('../../assets/icon/ic_profile2.png'),
-        actionType: 'added 3 new friends',
-        actionLabel: '',
-        datetime: '3 days ago',
-        latitud:9.09716730569659,
-        longitud:-79.3719626963138
-    },
-    {
-        id: '5',
-        type: DATA_TYPE.ACTION_LIKE,
-        user: 'Sm 288',
-        avatar: require('../../assets/icon/ic_profile1.png'),
-        actionType: 'liked',
-        actionLabel: 'Introduction to UX design',
-        datetime: '3 days ago',
-        latitud:9.09716730569659,
-        longitud:-79.3719626963138
-    },
-    {
-        id: '6',
-        type: DATA_TYPE.ACTION_LIKE,
-        user: 'Ms nueva era',
-        avatar: require('../../assets/icon/ic_profile1.png'),
-        actionType: 'commented on',
-        actionLabel: 'Making your firs Android App',
-        datetime: '3 days ago',
-        latitud:9.09716730569659,
-        longitud:-79.3719626963138
-    },
-];
-
 function CustomersList() {
     const pageContext = useContext(PageContext);
     const snackbarRef = useRef(null);
+    const dias = [
+        { text: 'Lunes', value: 'lunes' },
+        { text: 'Martes', value: 'martes' },
+        { text: 'Miercoles', value: 'miercoles' },
+        { text: 'Jueves', value: 'jueves' },
+        { text: 'Viernes', value: 'viernes' },
+    ];
+    const [clientes, setClientes] = useState ([
+        { id: '1', dia: 'Lunes', latitud:9.349614, longitud:-79.87962, type: DATA_TYPE.ACTION_LIKE, user: 'SM Multifortuna', avatar: require('../../assets/icon/ic_profile1.png'), actionType: 'liked', actionLabel: 'How to be A Hipster', datetime: 'An hour ago' },
+        { id: '2', dia: 'Lunes', latitud:37.78825, longitud:-122.4324, type: DATA_TYPE.ACTION_LIKE, user: 'Ms zafiro', avatar: require('../../assets/icon/ic_profile2.png'), actionType: 'commented on', actionLabel: 'How to be A Hipster', datetime: '3 days ago' },
+        { id: '3', dia: 'Martes', latitud:9.100712, longitud:-79.28867, type: DATA_TYPE.ACTION_LIKE, user: 'Ms cabuya', avatar: require('../../assets/icon/ic_profile1.png'), actionType: 'is now following you', actionLabel: '', datetime: '3 days ago' },
+        { id: '4', dia: 'Miercoles', latitud:37.64258, longitud:-110.4324, type: DATA_TYPE.ACTION_LIKE, user: 'Ms koko', avatar: require('../../assets/icon/ic_profile2.png'), actionType: 'added 3 new friends', actionLabel: '', datetime: '3 days ago' },
+        { id: '5', dia: 'Jueves', latitud:9.097167, longitud:-79.37196, type: DATA_TYPE.ACTION_LIKE, user: 'Sm 288', avatar: require('../../assets/icon/ic_profile1.png'), actionType: 'liked', actionLabel: 'Introduction to UX design', datetime: '3 days ago' },
+        { id: '6', dia: 'Viernes', latitud:9.345515, longitud:-79.80551, type: DATA_TYPE.ACTION_LIKE, user: 'Ms nueva era', avatar: require('../../assets/icon/ic_profile1.png'), actionType: 'commented on', actionLabel: 'Making your firs Android App', datetime: '3 days ago' },
+        { id: '7', dia: 'Sabado', latitud:9.345515, longitud:-79.80551, type: DATA_TYPE.ACTION_LIKE, user: 'Prueba Sabado', avatar: require('../../assets/icon/ic_profile1.png'), actionType: 'commented on', actionLabel: 'Making your firs Android App', datetime: '3 days ago' },
+    ]);
+    const  [selected, setSelected] = useState(null);
+    const onPress = () => {
+        return (e) => {
+            setSelected(e.text);
+        };
+    };
+
+
+
     return (
         <View style={{flex: 1, backgroundColor: '#f1f5f7'}}>
             <HeaderThreeButton
@@ -94,9 +51,12 @@ function CustomersList() {
                 morePress={() => snackbarRef.current.ShowSnackBarFunction('more clicked')}
                 bgColor='#0092fe'
             />
+            <InputSelect onPress={onPress()} initial_value='Día de Visita' data ={dias} border = {true}/>
+
+            
             <FlatList
                 contentContainerStyle={{paddingBottom: 10}}
-                data={DATA}
+                data={clientes.filter(cliente => cliente.dia === selected )}
                 renderItem={({item}) => <ItemActivity data={item}/>}
                 ListHeaderComponent={() =>
                     <View style={{
@@ -132,7 +92,7 @@ function ItemActivity({data}) {
             <View style={{flex: 1, marginLeft: 10}} >
             
                  <Text style={{flex: 1, fontSize: 14, color: '#616161'}} 
-                    onPress={() => pageContext.pageDispatch({page : 'map1', category:"xxx"} )}>
+                    onPress={() => pageContext.pageDispatch({page : 'map1', info: data} )}>
                     <Text style={{fontWeight: 'bold', color: '#616161'}}>{data.user} </Text>
                    
                 </Text>

@@ -28,8 +28,6 @@ Prim Sales es una aplicación desarrollada en React para el software Idempiere. 
 
 ---
 
+© 2021 CHI Technologies & Solutions. Todos los derechos reservados.
 
-<div align="center">
-  <p>© 2020 CHI Technologies & Solutions. Todos los derechos reservados.</p>
-  <p>Contáctanos: contacto@chi.com.pa | patricia.hung@chi.com.pa</p>
-</div>
+Contáctanos: [contacto@chi.com.pa](mailto:contacto@chi.com.pa) | [patricia.hung@chi.com.pa](mailto:patricia.hung@chi.com.pa)
